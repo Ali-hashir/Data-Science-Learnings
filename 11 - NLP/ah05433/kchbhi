@@ -1,0 +1,38 @@
+from sklearn.tree import DecisionTreeClassifier
+import numpy as np
+
+X = np.array([[1, 0, 0],
+              [1, 0, 1],
+              [0, 1, 0],
+              [1, 1, 1],
+              [1, 1, 0]])
+
+y = np.array([0, 0, 0, 1, 1])
+
+dt_classifier = DecisionTreeClassifier(criterion='entropy')
+
+dt_classifier.fit(X, y)
+
+def calculate_entropy(y):
+    unique, counts = np.unique(y, return_counts=True)
+    probabilities = counts / counts.sum()
+    entropy = -np.sum(probabilities * np.log2(probabilities))
+    return entropy
+
+def calculate_information_gain(X, y, attribute_index):
+    entropy_before = calculate_entropy(y)
+    values, counts = np.unique(X[:, attribute_index], return_counts=True)
+    weighted_entropy = 0
+    
+    for i, value in enumerate(values):
+        subset_y = y[X[:, attribute_index] == value]
+        weighted_entropy += (counts[i] / np.sum(counts)) * calculate_entropy(subset_y)
+        
+    information_gain = entropy_before - weighted_entropy
+    return information_gain
+
+information_gain_A1 = calculate_information_gain(X, y, 0)
+information_gain_A2 = calculate_information_gain(X, y, 1)
+information_gain_A3 = calculate_information_gain(X, y, 2)
+
+print(information_gain_A1, information_gain_A2, information_gain_A3)
