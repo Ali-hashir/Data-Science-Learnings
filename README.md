@@ -26,8 +26,3 @@ To explore the notebooks:
 **Clone the Repository**:
  ```bash
  git clone https://github.com/Ali-hashir/Data-Science-Learnings.git
-
-
-This README provides a clear overview of the repository, instructions for getting started, and guidelines for contributing.
-::contentReference[oaicite:0]{index=0}
- 
